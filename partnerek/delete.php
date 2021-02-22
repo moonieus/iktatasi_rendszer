@@ -2,12 +2,13 @@
 //az url-bol kapjuk az adatot:
 $msg="";
 $id = $_GET['deleteId'];
-$sql="delete from szemelyek where azonosito={$id}";
+$nev= $_GET['deleteNev'];
+$sql="delete from felhasznalok where az={$id}";
 try{
 	$count=$db->exec($sql);
-	$msg ="A/Az {$id} azonositoju szemely torolve az adatbazisbol !"; 
+	$msg ="{$nev} törölve az adatbázisból!"; 
 }catch(PDOException $e){		
-	$msg= "A/Az {$id} azonositoju szemelyt nem lehet kitorolni!"; 
+	$msg= "{$nev} nem törölhető!"; 
 }
-header("Location:index.php?p=alkalmazottak.php&msg={$msg}");
+header("Location:index.php?p=felhasznalok.php&msg={$msg}");
 ?> 

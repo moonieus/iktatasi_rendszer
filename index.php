@@ -14,13 +14,13 @@
     <!--Fontawesome CDN-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="login.css">
-	<script src="menu.js"></script>
+	<!--<script src="menu.js"></script>-->
 	<link rel="stylesheet" href="style.css">            
 </head>
 
 <body>
 
-  <div class="container-fluid ">
+<div class="container-fluid ">
 
 <nav class="navbar navbar-expand-lg navbar-light text-white fixed-top bg-dark">
   <a class="navbar-brand" href="#">Logó</a>
@@ -35,7 +35,7 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link text-white" href="index.php?p=iktatas.php">Számlák iktatása</a>
+				<a class="nav-link text-white" href="index.php?p=iktatas.php" >Számlák iktatása</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link text-white " href="index.php?p=igazolas.php">Számlák igazolása</a>

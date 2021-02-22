@@ -5,5 +5,5 @@ if(isset($_GET['p'])=='logout.php'){
 }
 ?> 
 
-         <p >Bejelentkezve:<?=isset($_SESSION['user'])?$_SESSION['user']:""?></h1>
+<!--<p >Bejelentkezve:<?=isset($_SESSION['user'])?$_SESSION['user']:""?></h1>
     

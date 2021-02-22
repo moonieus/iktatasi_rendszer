@@ -1,4 +1,3 @@
-
 <?php
 require_once "config.php";
 
@@ -12,15 +11,13 @@ if(isset($_POST['belepes'])){
 		extract($row);
 		$_SESSION['user']=$felhasznalo;
 		$_SESSION['jog']=$jogosultsag;
-		//print_r($_SESSION);
 		unset($_SESSION['msg']);
 	}else{
 		$_SESSION['msg']="Hibás azonosító/jelszó páros!";
 		unset($_SESSION['user']);
 	}
 	header('Location:index.php');
-}
-                 
+}               
 ?>
 
 <div class="jumbotron login">
