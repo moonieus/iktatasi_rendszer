@@ -12,6 +12,7 @@ while($row=$stmt->fetch()){
 
 if(isset($_POST['mentes'])){
     $kep=$_FILES['file']['name'];
+    console.log($pkod);
     $sql="insert into szamlak values (0,'$szamlaszam','$pkod','$szla_kelte','$telj_dat','$fiz_hat','$netto','$afa','$brutto','N','$kep')";
     try{
         $stmt=$db->exec($sql);

@@ -1,7 +1,7 @@
 <?php
 $tbl="";
-$sql="SELECT iktatoszam,szamlaszam,partnerek.nev as 'nev',szla_kelte,telj_dat,fiz_hat,szamla_tipus.nev as 'szlatip',netto,afa,
-brutto,status,kep FROM szamlak,partnerek where szamlak.szla_tip_az=szamla_tipus.az and partnerek.az=szamlak.partnerek_az order by iktatoszam";
+$sql="SELECT iktatoszam,szamlaszam,partnerek.nev as 'nev',szla_kelte,telj_dat,fiz_hat,netto,afa,
+brutto,status,kep FROM szamlak,partnerek where partnerek.az=szamlak.partnerek_az and status='N' order by iktatoszam";
 $stmt=$db->query($sql);
 while($row=$stmt->fetch()){
 	extract($row);
