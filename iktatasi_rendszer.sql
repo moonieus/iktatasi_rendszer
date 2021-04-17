@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2021. Ápr 17. 19:39
+-- Létrehozás ideje: 2021. Ápr 17. 19:55
 -- Kiszolgáló verziója: 10.4.14-MariaDB
 -- PHP verzió: 7.2.33
 
@@ -108,8 +108,6 @@ CREATE TABLE `szamlak` (
   `szla_kelte` date NOT NULL,
   `telj_dat` date NOT NULL,
   `fiz_hat` date NOT NULL,
-  `szla_tip_az` int(1) NOT NULL,
-  `eredeti_szla` varchar(30) COLLATE utf8_hungarian_ci DEFAULT NULL,
   `netto` int(12) NOT NULL,
   `afa` int(12) NOT NULL,
   `brutto` int(12) NOT NULL,
@@ -121,30 +119,11 @@ CREATE TABLE `szamlak` (
 -- A tábla adatainak kiíratása `szamlak`
 --
 
-INSERT INTO `szamlak` (`iktatoszam`, `szamlaszam`, `partnerek_az`, `szla_kelte`, `telj_dat`, `fiz_hat`, `szla_tip_az`, `eredeti_szla`, `netto`, `afa`, `brutto`, `status`, `kep`) VALUES
-(1, 'SZ2021-00233', 2, '2021-04-01', '2021-04-01', '2021-04-22', 1, NULL, 100, 27, 127, 'I', 'inpiro.pdf'),
-(2, 'SZ2021-00235', 2, '2021-04-01', '2021-04-01', '2021-04-22', 1, NULL, 100, 27, 127, 'N', ''),
-(3, '2021/00144', 4, '2021-03-16', '2021-03-10', '2021-04-01', 2, '2021/00101', -10, -3, 13, 'V', ''),
-(4, 'SZ2021-00250', 2, '2021-04-01', '2021-04-01', '2021-04-22', 1, NULL, 100, 27, 127, 'I', '');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `szamla_tipus`
---
-
-CREATE TABLE `szamla_tipus` (
-  `az` int(1) NOT NULL,
-  `nev` varchar(30) COLLATE utf8_hungarian_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `szamla_tipus`
---
-
-INSERT INTO `szamla_tipus` (`az`, `nev`) VALUES
-(1, 'normál'),
-(2, 'helyesbítő');
+INSERT INTO `szamlak` (`iktatoszam`, `szamlaszam`, `partnerek_az`, `szla_kelte`, `telj_dat`, `fiz_hat`, `netto`, `afa`, `brutto`, `status`, `kep`) VALUES
+(1, 'SZ2021-00233', 2, '2021-04-01', '2021-04-01', '2021-04-22', 100, 27, 127, 'I', 'inpiro.pdf'),
+(2, 'SZ2021-00235', 2, '2021-04-01', '2021-04-01', '2021-04-22', 100, 27, 127, 'N', ''),
+(3, '2021/00144', 4, '2021-03-16', '2021-03-10', '2021-04-01', -10, -3, 13, 'V', ''),
+(4, 'SZ2021-00250', 2, '2021-04-01', '2021-04-01', '2021-04-22', 100, 27, 127, 'I', '');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -174,14 +153,7 @@ ALTER TABLE `partnerek`
 --
 ALTER TABLE `szamlak`
   ADD PRIMARY KEY (`iktatoszam`),
-  ADD KEY `partnerek_az` (`partnerek_az`),
-  ADD KEY `szla_tip_az` (`szla_tip_az`);
-
---
--- A tábla indexei `szamla_tipus`
---
-ALTER TABLE `szamla_tipus`
-  ADD PRIMARY KEY (`az`);
+  ADD KEY `partnerek_az` (`partnerek_az`);
 
 --
 -- A kiírt táblák AUTO_INCREMENT értéke
@@ -209,13 +181,7 @@ ALTER TABLE `partnerek`
 -- AUTO_INCREMENT a táblához `szamlak`
 --
 ALTER TABLE `szamlak`
-  MODIFY `iktatoszam` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT a táblához `szamla_tipus`
---
-ALTER TABLE `szamla_tipus`
-  MODIFY `az` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `iktatoszam` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Megkötések a kiírt táblákhoz
@@ -226,13 +192,6 @@ ALTER TABLE `szamla_tipus`
 --
 ALTER TABLE `felhasznalok`
   ADD CONSTRAINT `felhasznalok_ibfk_1` FOREIGN KEY (`jogosultsagok_az`) REFERENCES `jogosultsagok` (`az`);
-
---
--- Megkötések a táblához `szamlak`
---
-ALTER TABLE `szamlak`
-  ADD CONSTRAINT `szamlak_ibfk_1` FOREIGN KEY (`partnerek_az`) REFERENCES `partnerek` (`az`),
-  ADD CONSTRAINT `szamlak_ibfk_2` FOREIGN KEY (`szla_tip_az`) REFERENCES `szamla_tipus` (`az`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
