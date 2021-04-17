@@ -1,13 +1,12 @@
 <?php
 $tbl="";
-$sql="SELECT iktatoszam,szamlaszam,partnerek.nev as 'nev',szla_kelte,telj_dat,fiz_hat,szamla_tipus.nev as 'szlatip',eredeti_szla,netto,afa,
-brutto,status,kep FROM szamlak,szamla_tipus,partnerek where szamlak.szla_tip_az=szamla_tipus.az and partnerek.az=szamlak.partnerek_az order by iktatoszam";
+$sql="SELECT iktatoszam,szamlaszam,partnerek.nev as 'nev',szla_kelte,telj_dat,fiz_hat,szamla_tipus.nev as 'szlatip',netto,afa,
+brutto,status,kep FROM szamlak,partnerek where szamlak.szla_tip_az=szamla_tipus.az and partnerek.az=szamlak.partnerek_az order by iktatoszam";
 $stmt=$db->query($sql);
 while($row=$stmt->fetch()){
 	extract($row);
 	$tbl.="<tr><td>{$iktatoszam}</td><td>{$szamlaszam}</td><td>{$nev}</td><td>{$szla_kelte}</td>
-	<td>{$telj_dat}</td><td>{$fiz_hat}</td><td>{$szlatip}</td><td>{$eredeti_szla}</td><td>{$netto}</td>
-	<td>{$afa}</td><td>{$brutto}</td><td>{$status}</td><td>{$kep}</td>";           
+	<td>{$telj_dat}</td><td>{$fiz_hat}</td><td>{$netto}</td><td>{$afa}</td><td>{$brutto}</td><td>{$status}</td><td>{$kep}</td>";           
 	$tbl.="<td class=' btn btn-outline-primary m-1'><a class='text-warning' href='index.php?p=iktatas.php&editId=$iktatoszam'>Módosítás</a></td>";
 	$tbl.="<td class=' btn btn-outline-primary  m-1'><a class='text-danger' href='index.php?p=iktatas.php&deleteId=$iktatoszam'>Törlés</a></td></tr>";
 }	
@@ -34,8 +33,6 @@ while($row=$stmt->fetch()){
 						<th scope="col">Szla. kelte</th>
 						<th scope="col">Telj. dat.</th>
 						<th scope="col">Fiz. hat.</th>
-						<th scope="col">Szla. tip.</th>
-						<th scope="col">Eredeti szla.</th>
 						<th scope="col">Nettó</th>
 						<th scope="col">Áfa</th>
 						<th scope="col">Bruttó</th>

@@ -1,7 +1,6 @@
 <?php
 ob_start();
-$msg=$szamlaszam=$partnerek_az=$szla_kelte=$telj_dat=$fiz_hat=$szla_tip_az=$eredeti_szla=$netto=
-$afa=$brutto=$kep=$lista="";
+$msg=$szamlaszam=$partnerek_az=$szla_kelte=$telj_dat=$fiz_hat=$netto=$afa=$brutto=$kep=$lista="";
 $pkod=0;
 
 $sql="select az,nev from partnerek order by nev";
@@ -13,8 +12,7 @@ while($row=$stmt->fetch()){
 
 if(isset($_POST['mentes'])){
     $kep=$_FILES['file']['name'];
-    $sql="insert into szamlak values (0,'$szamlaszam','$pkod','$szla_kelte','$telj_dat','$fiz_hat',
-    '$szla_tip_az','$eredeti_szla','$netto','$afa','$brutto','N','$kep')";
+    $sql="insert into szamlak values (0,'$szamlaszam','$pkod','$szla_kelte','$telj_dat','$fiz_hat','$netto','$afa','$brutto','N','$kep')";
     try{
         $stmt=$db->exec($sql);
         $msg="Sikeres adatbeírás!"; 
@@ -56,17 +54,8 @@ if(isset($_POST['mentes'])){
                         <label for="">Fizetési határidő:</label>
                         <input type="date" name="fiz_hat" class="form-control" value="<?=$fiz_hat?>" required>
 					</div>
-                    <div class="form-group">
-                        <label for="">Számla típus:</label>
-                        <input type="text" name="szla_tip_az" id="szla_tip_az" class="form-control" value="<?=$szla_tip_az?>" required>
-                    </div>  
-
             </div>
             <div class="col">
-                    <div class="form-group">
-                        <label for="">Eredeti számlaszám:</label>
-                        <input type="text" name="eredeti_szla" class="form-control" value="<?=$eredeti_szla?>">
-					</div>
                     <div class="form-group">
                         <label for="">Nettó érték:</label>
                         <input type="number" name="netto" class="form-control" value="<?=$netto?>">
