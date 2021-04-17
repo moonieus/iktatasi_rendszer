@@ -27,7 +27,7 @@ if(isset($_POST['mentes'])){
 ?>
 
     <div class="container border">
-        <h6 class="text-center">Az új felhasználó adatai</h6>
+        <h6 class="text-center bg-warning">Az új felhasználó adatai</h6>
         <div class="row justify-content-center ">	
 			<div class="col-md-4" id="hibak" ><?=$msg?></div>	
 		</div>
@@ -55,11 +55,12 @@ if(isset($_POST['mentes'])){
                             </select>
                         </div>
                     </div>
-                    <input class="btn btn-outline-primary" type="submit" name="mentes" value="Mentés" >
-                </form>
-                <div class="row justify-content-center p-3">	
+                    <div class="row justify-content-center p-3">	
 			        <a class="btn btn-outline-warning " href="index.php?p=felhasznalok.php">Mégsem</a>
-		        </div>
+                    <input class="btn btn-outline-primary" type="submit" name="mentes" value="Mentés" >
+		        </div>                   
+                </form>
+
               </div>
          </div>
     </div>

@@ -1,10 +1,6 @@
 <?php
 ob_start();
 
-if(!isset($_SESSION["user"])=="admin"){
-	header("Location:index.php");
-}
-
 require_once 'config.php';
 if(isset($_GET['editId']))
 	include "felhasznalok\\edit.php";

@@ -16,7 +16,7 @@ while($row=$stmt->fetch()){
     extract($row);
     $lista.="<option value='{$jaz}'>{$jnev}</option>";
 }
-//print_r($_POST);
+
 if(isset($_POST['mentes'])) {
     extract($_POST);
     $sql="update felhasznalok set nev='{$nev}',jelszo='{$jelszo}',jogosultsagok_az={$jog} where az={$id}";
@@ -27,14 +27,13 @@ if(isset($_POST['mentes'])) {
         header("Location:index.php?p=felhasznalok.php&msg={$msg}");
     exit;
     }catch(PDOException $e) {
-        //echo 'Caught exception: ',  $e->getMessage(), "\n";
         $msg="Hiba! Nem sikerült az adat beírása az adatbázisba!";
     }
 }
 
 ?>
    <div class="container border">
-        <h3 class="text-center">Adatok módosítása</h3>
+        <h3 class="text-center bg-warning">Adatok módosítása</h3>
         <div class="row justify-content-center p-3">	
 			<a class="btn btn-outline-primary " href="index.php?p=felhasznalok.php">Vissza</a>
 		</div>
@@ -57,7 +56,7 @@ if(isset($_POST['mentes'])) {
                         </select>
                     </div>
 					<input type="hidden" name="id" value="<?=$id?>">
-                    <input type="submit" name="mentes" value="modositas" >
+                    <input type="submit" name="mentes" value="Módosítás">
                 </form>
               </div>
          </div>

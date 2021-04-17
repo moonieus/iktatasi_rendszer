@@ -1,12 +1,11 @@
 <?php
+ob_start();
 
-if(!isset($_SESSION['user']) || $_SESSION['jog']!=="igazolo")
-    header('Location:index.php');
-
+require_once 'config.php';
+if(isset($_GET['igazolId']))
+	include "igazolas\\igazol.php";
+else if(isset($_GET['visszautasitId']))
+	include "igazolas\\visszautasit.php";
+else
+	include "igazolas\\igazolasView.php";
 ?>
-<div class="tartalom">
-    <h1>Ellenőrzés</h1>
-    
-    <p>ez az ellenőrzés ott kell legyen minden php kódnak az első sorában, hogy másnak ne jelenjen majd meg a tartalom/p>
-
-</div>

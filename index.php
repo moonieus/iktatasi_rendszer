@@ -1,5 +1,6 @@
 <?php
     session_start();
+	
  ?>
 
 <!DOCTYPE html>
@@ -14,16 +15,17 @@
     <!--Fontawesome CDN-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="login.css">
+	<link rel="stylesheet" type="text/css" href="partnerek\partnerekView.css">
 	<!--<script src="menu.js"></script>-->
 	<link rel="stylesheet" href="style.css">            
+	<script src="fuggvenyek.js"></script>
 </head>
 
 <body>
 
-<div class="container-fluid ">
+<div class="container-fluid index">
 
 <nav class="navbar navbar-expand-lg navbar-light text-white fixed-top bg-dark">
-  <a class="navbar-brand" href="#">Logó</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon bg-light"></span>
   </button>
@@ -41,10 +43,13 @@
 				<a class="nav-link text-white " href="index.php?p=igazolas.php">Számlák igazolása</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white" href="index.php?p=utalvanyozas.php">Számlák utalványozása</a>
+				<a class="nav-link text-white" href="index.php?p=igazolt.php" >Igazolt számlák</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white" href="index.php?p=partnerek.php">Partnerek karbantartása</a>
+				<a class="nav-link text-white" href="index.php?p=visszautasitott.php" >Visszautasított számlák</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white" href="index.php?p=partnerek.php">Partnerek kezelése</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link text-white" href="index.php?p=felhasznalok.php">Felhasználók kezelése</a>
@@ -62,9 +67,48 @@
 
     <main class="tartalom">
 		<?php
-				if(isset($_GET["p"])){
+				//print_r($_GET);
+				//print_r($_SESSION);
+				if(isset($_GET["p"]) && isset($_SESSION["jog"])){
 					$oldal = $_GET["p"];
-					include $oldal;
+					switch($oldal){
+						case "iktatas.php" :
+							if ($_SESSION["jog"]=="iktatas" || $_SESSION["jog"]=="admin")
+								include $oldal;
+							else include("fooldal.php");
+							break;
+						case "felhasznalok.php" :
+							if ($_SESSION["jog"]=="admin")
+								include $oldal;
+							else include("fooldal.php");
+							break;
+						case "partnerek.php" :
+							if ($_SESSION["jog"]=="iktatas" || $_SESSION["jog"]=="admin")
+								include $oldal;
+							else include("fooldal.php");
+							break;
+						case "igazolas.php" :
+							if ($_SESSION["jog"]=="igazolas" || $_SESSION["jog"]=="admin")
+								include $oldal;
+							else include("fooldal.php");
+							break;
+						case "igazolt.php" :
+							if (isset($_SESSION['user']))
+								include $oldal;
+							else include("fooldal.php");
+							break;
+						case "visszautasitott.php" :
+							if (isset($_SESSION['user']))
+								include $oldal;
+							else include("fooldal.php");
+							break;		
+						case "logout.php" :
+							session_destroy();
+							print_r($_GET);
+							print_r($_SESSION);
+							header('Location:index.php');
+							break;													
+					}
 				}	
 				else include("fooldal.php");
 		?>

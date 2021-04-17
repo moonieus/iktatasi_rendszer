@@ -1,12 +1,13 @@
 <?php
+ob_start();
 
-if(!isset($_SESSION['user']))
-    header('Location:index.php');
-
+require_once 'config.php';
+if(isset($_GET['editId']))
+	include "iktatas\\edit.php";
+else if(isset($_GET['deleteId']))
+	include "iktatas\\delete.php";
+else if(isset($_GET['insert']))
+	include "iktatas\\insert.php";
+else
+	include "iktatas\\iktatasView.php";
 ?>
-<div class="tartalom">
-    <h1>Számlák iktatása</h1>
-    <p>...itt jelennek meg a számlák és különböző szűrési lehetőségek, persze ha a felhasználó bejelentkezett</p>
-    <p>ez az ellenőrzés ott kell legyen minden php kódnak az első sorában, hogy másnak ne jelenjen majd meg a tartalom/p>
-
-</div>

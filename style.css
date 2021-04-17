@@ -3,12 +3,14 @@ body{
 
     min-height: 75rem;
     padding-top: 4.5rem; 
-    background-color: antiquewhite;
-  }           
-
-
+    background-color: antiquewhite; 
+    background-image: url(hatter.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /*height: 100%;*/
+    font-family: 'Numans', sans-serif;
+}           
 
 .jumbotron{
     height: 100vh;
 }
-u

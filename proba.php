@@ -1,0 +1,1 @@
+composer require --dev phpunit/phpunit ^7<?php phpinfo(); ?>

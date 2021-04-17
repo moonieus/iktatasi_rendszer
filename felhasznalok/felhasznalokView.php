@@ -12,7 +12,7 @@ while($row=$stmt->fetch()){
 ?>
 
 <div class="container border">
-  <h3 class="text-center">Felhasználók kezelése</h3>
+  <h3 class="text-center bg-warning">Felhasználók kezelése</h3>
   <div class="row">
 	 <div class="col-md-4"  ><?=isset($_GET['msg'])? $_GET['msg']: "" ?></div>
 	 <div class="col-md-4 shadow rounded">
