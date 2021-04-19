@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2021. Ápr 17. 19:55
+-- Létrehozás ideje: 2021. Ápr 19. 08:07
 -- Kiszolgáló verziója: 10.4.14-MariaDB
 -- PHP verzió: 7.2.33
 
@@ -181,7 +181,7 @@ ALTER TABLE `partnerek`
 -- AUTO_INCREMENT a táblához `szamlak`
 --
 ALTER TABLE `szamlak`
-  MODIFY `iktatoszam` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `iktatoszam` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Megkötések a kiírt táblákhoz
@@ -192,6 +192,12 @@ ALTER TABLE `szamlak`
 --
 ALTER TABLE `felhasznalok`
   ADD CONSTRAINT `felhasznalok_ibfk_1` FOREIGN KEY (`jogosultsagok_az`) REFERENCES `jogosultsagok` (`az`);
+
+--
+-- Megkötések a táblához `szamlak`
+--
+ALTER TABLE `szamlak`
+  ADD CONSTRAINT `szamlak_ibfk_1` FOREIGN KEY (`partnerek_az`) REFERENCES `partnerek` (`az`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
