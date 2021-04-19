@@ -1,20 +1,27 @@
 <?php
-$msg=$adoszam=$nev=$varos=$utca=$irszam=$kapcsolattarto=$telszam=$email="";
+$msg=$nev=$varos=$utca=$kapcsolattarto=$telszam=$email="";
+$adosz=$irszam=0;
 
 if(isset($_POST['mentes'])){
     extract($_POST);
-    print_r($_POST);
-    $sql="insert into partnerek values (0,'$nev','$adoszam','$varos','$utca','$irszam','$kapcsolattarto','$telszam','$email')";
-    try{
-        $stmt=$db->exec($sql);
-        $msg="Sikeres adatbeírás!"; 
-        unset($_GET['insert']);
-        header("Location:index.php?p=partnerek.php&msg={$msg}");
-    exit;
-    }catch(PDOException $e) {
-        //echo 'Caught exception: ',  $e->getMessage(), "\n";
-        $msg="Hiba! Nem sikerült az adat beírása az adatbázisba!";
-    }    
+    $sql="select az from partnerek where adoszam={$adosz}";
+    $stmt=$db->query($sql);
+	if($stmt->rowCount()==1){
+        $msg="Az adószám már létezik az adatbázisban!";
+        echo "<script type='text/javascript'>alert('$msg');</script>";
+	}else{
+        $sql="insert into partnerek values (0,'$nev',$adosz,'$varos','$utca',$irszam,'$kapcsolattarto','$telszam','$email')";
+        try{
+            $stmt=$db->exec($sql);
+            $msg="Sikeres adatbeírás!"; 
+            unset($_GET['insert']);
+            header("Location:index.php?p=partnerek.php&msg={$msg}");
+        exit;
+        }catch(PDOException $e) {
+            //echo 'Caught exception: ',  $e->getMessage(), "\n";
+            $msg="Hiba! Nem sikerült az adat beírása az adatbázisba!";
+        }    
+    }
 }
 ?>
 
@@ -25,7 +32,7 @@ if(isset($_POST['mentes'])){
             <div class="col">              
                     <div class="form-group">
                         <label for="">Adószám:</label>
-                        <input type="number" name="adoszam" id="adoszam" min="10000000000" max="99999999999" class="form-control" value="<?=$adoszam?>" required autofocus>
+                        <input type="number" name="adosz" id="adosz" min="10000000000" max="99999999999" class="form-control" value="<?=$adosz?>" required autofocus>
                     </div>               
                     <div class="form-group">
                         <label for="">Név:</label>

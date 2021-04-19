@@ -11,17 +11,24 @@ if(isset($_GET['editId'])){
 
 if(isset($_POST['mentes'])) {
     extract($_POST);
-    $sql="update partnerek set nev='{$nev}',adoszam='{$adoszam}',varos='{$varos}',utca='{$utca}',irszam='{$irszam}',
-    kapcsolattarto='{$kapcsolattarto}',telszam='{$telszam}',email='{$email}' where az={$id}";
-    try{
-        $stmt=$db->exec($sql);
-        $msg="Sikeres adatbeírás!"; 
-        unset($_GET['insert']);
-        header("Location:index.php?p=partnerek.php&msg={$msg}");
-    exit;
-    }catch(PDOException $e) {
-        //echo 'Caught exception: ',  $e->getMessage(), "\n";
-        $msg="Hiba! Nem sikerült az adat beírása az adatbázisba!";
+    $sql="select az from partnerek where adoszam={$adoszam}";
+    $stmt=$db->query($sql);
+	if($stmt->rowCount()==1){
+        $msg="Az adószám már létezik az adatbázisban!";
+        echo "<script type='text/javascript'>alert('$msg');</script>";
+	}else{
+        $sql="update partnerek set nev='{$nev}',adoszam={$adoszam},varos='{$varos}',utca='{$utca}',irszam={$irszam},
+        kapcsolattarto='{$kapcsolattarto}',telszam='{$telszam}',email='{$email}' where az={$id}";
+        try{
+            $stmt=$db->exec($sql);
+            $msg="Sikeres adatbeírás!"; 
+            unset($_GET['insert']);
+            header("Location:index.php?p=partnerek.php&msg={$msg}");
+        exit;
+        }catch(PDOException $e) {
+            //echo 'Caught exception: ',  $e->getMessage(), "\n";
+            $msg="Hiba! Nem sikerült az adat beírása az adatbázisba!";
+        }
     }
 }
 
