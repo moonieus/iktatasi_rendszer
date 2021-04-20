@@ -6,7 +6,7 @@ $stmt=$db->query($sql);
 while($row=$stmt->fetch()){
 	extract($row);
 	$tbl.="<tr><td>{$iktatoszam}</td><td>{$szamlaszam}</td><td>{$nev}</td><td>{$szla_kelte}</td>
-	<td>{$telj_dat}</td><td>{$fiz_hat}</td><td>{$netto}</td><td>{$afa}</td><td>{$brutto}</td><td>{$status}</td><td>{$kep}</td>";           
+	<td>{$telj_dat}</td><td>{$fiz_hat}</td><td>{$netto}</td><td>{$afa}</td><td>{$brutto}</td><td>{$status}</td><td><a href='szamlak/{$kep}' target='_blank'>{$kep}</a></td>";           
 	$tbl.="<td class=' btn btn-outline-primary m-1'><a class='text-warning' href='index.php?p=iktatas.php&editId=$iktatoszam'>Módosítás</a></td>";
 	$tbl.="<td class=' btn btn-outline-primary  m-1'><a class='text-danger' href='index.php?p=iktatas.php&deleteId=$iktatoszam'>Törlés</a></td></tr>";
 }	

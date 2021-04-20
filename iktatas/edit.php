@@ -3,16 +3,23 @@ $lista="";
 //ha megerkezett az URL-ben az azonosito, meg kell jeleniteni a megfelelo rekordot:
 if(isset($_GET['editId'])){
 	$id=$_GET['editId'];//ezt az $id elrejtjuk a form-ban egy hidden tipusu tag-ban
-    $sql="SELECT az,nev,adoszam,varos,utca,irszam,kapcsolattarto,telszam,email FROM partnerek where az={$id}";
+    $sql="SELECT iktatoszam,szamlaszam,partnerek.nev as 'nev',szla_kelte,telj_dat,fiz_hat,netto,afa,
+    brutto,status,kep FROM szamlak,partnerek where partnerek.az=szamlak.partnerek_az and iktatoszam={$id}";
 	$stmt=$db->query($sql);
 	$row=$stmt->fetch();
     extract($row);	
 }
 
+$sql="select az,nev as 'pnev' from partnerek order by nev";
+$stmt=$db->query($sql);
+while($row=$stmt->fetch()){
+    extract($row);
+    $lista.="<option value='{$az}'>{$pnev}</option>";
+}
 if(isset($_POST['mentes'])) {
     extract($_POST);
-    $sql="update partnerek set nev='{$nev}',adoszam='{$adoszam}',varos='{$varos}',utca='{$utca}',irszam='{$irszam}',
-    kapcsolattarto='{$kapcsolattarto}',telszam='{$telszam}',email='{$email}' where az={$id}";
+    $sql="update szamlak set szamlaszam='{$szamlaszam}',partnerek_az={$pkod},szla_kelte='{$szla_kelte}',telj_dat='{$telj_dat}',
+    fiz_hat='{$fiz_hat}',netto={$netto},afa={$afa},brutto={$brutto},status='{$status}',kep='{$kep}' where iktatoszam={$id}";
     try{
         $stmt=$db->exec($sql);
         $msg="Sikeres adatbeírás!"; 
@@ -26,60 +33,64 @@ if(isset($_POST['mentes'])) {
 }
 
 ?>
-   <div class="container border">
+<div class="container border">
         <h3 class="text-center bg-warning">Adatok módosítása</h3>
-        <div class="row justify-content-center p-3">	
-			<a class="btn btn-outline-primary " href="index.php?p=partnerek.php">Vissza</a>
-		</div>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
         <div class="row m-1 p-2">   
-            <div class="col">
-
-                   <div class="form-group">
-                        <label for="">Partnerkód:</label>
-                        <input type="number" name="az" value="<?=$az?>" style="width: 50px" readonly>
-                    </div>                 
+            <div class="col">   
                     <div class="form-group">
-                        <label for="">Adószám:</label>
-                        <input type="text" name="adoszam" id="adoszam" class="form-control" value="<?=$adoszam?>" required autofocus change="adoszamell()">
-                    </div>               
+                        <label for="">Iktatószám:</label>
+                        <input type="text" name="iktatoszam" id="iktatoszam" class="form-control" value="<?=$iktatoszam?>" readonly>
+                    </div>            
                     <div class="form-group">
-                        <label for="">Név:</label>
-                        <input type="text" name="nev" class="form-control" value="<?=$nev?>" required>
+                        <label for="">Számlaszám:</label>
+                        <input type="text" name="szamlaszam" id="szamlaszam" class="form-control" value="<?=$szamlaszam?>" required autofocus>
+                    </div>         
+                    <div class="form-group">
+                        <label for="">Partner:</label>
+                        <select name="pkod" class="form-control" id="pkod">
+                            <option value="<?=$partnerek_az?>"><?=$nev?></option>
+                            <?=$lista?>
+                        </select>                        
                     </div>
                     <div class="form-group">
-                        <label for="">Város:</label>
-                        <input type="text" name="varos" class="form-control" value="<?=$varos?>" required>
+                        <label for="">Számla kelte:</label>
+                        <input type="date" name="szla_kelte" class="form-control" value="<?=$szla_kelte?>" required>
 					</div>
                     <div class="form-group">
-                        <label for="">Utca:</label>
-                        <input type="text" name="utca" class="form-control" value="<?=$utca?>" required>
+                        <label for="">Teljesítés dátuma:</label>
+                        <input type="date" name="telj_dat" class="form-control" value="<?=$telj_dat?>" required>
 					</div>
             </div>
             <div class="col">
                     <div class="form-group">
-                        <label for="">Irányítószám:</label>
-                        <input type="text" name="irszam" class="form-control" value="<?=$irszam?>" required>
+                        <label for="">Fizetési határidő:</label>
+                        <input type="date" name="fiz_hat" class="form-control" value="<?=$fiz_hat?>" required>
 					</div>
                     <div class="form-group">
-                        <label for="">Kapcsolattartó:</label>
-                        <input type="text" name="kapcsolattarto" class="form-control" value="<?=$kapcsolattarto?>">
+                        <label for="">Nettó érték:</label>
+                        <input type="number" name="netto" id="netto" class="form-control" value="<?=$netto?>">
 					</div>
                     <div class="form-group">
-                        <label for="">Telefonszám:</label>
-                        <input type="text" name="telszam" class="form-control" value="<?=$telszam?>">
+                        <label for="">Áfa érték:</label>
+                        <input type="number" name="afa" id="afa" class="form-control" value="<?=$afa?>">
 					</div>
                     <div class="form-group">
-                        <label for="">E-mail cím:</label>
-                        <input type="text" name="email" class="form-control" value="<?=$email?>">
+                        <label for="">Bruttó érték:</label>
+                        <input type="number" name="brutto" id="brutto" class="form-control" value="<?=$brutto?>">
 					</div>
-					<input type="hidden" name="id" value="<?=$id?>">
-                    <div class="row justify-content-center p-3">
-                    <input type="submit" name="mentes" value="Módosítás" class="btn btn-outline-warning">
-                    </div>
-                </div>
-                </form>
-         </div>
-    </div>
+                    <div class="form-group">
+                        <label for="">Számlakép:</label>
+                        <input type="file" name="file" id="file" class="form-control" value="<?=$kep?>">
+					</div>
+            </div>
+        </div>
+        <div class="row justify-content-center p-3">
+            <input type="hidden" name="id" value="<?=$id?>">	
+		    <a class="btn btn-outline-warning " href="index.php?p=iktatoszam.php">Mégsem</a>
+            <input class="btn btn-outline-primary" type="submit" name="mentes" value="Mentés">
+	    </div>
+        </form>
+</div> 
 
  
