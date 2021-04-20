@@ -87,7 +87,7 @@ if(isset($_POST['mentes'])) {
         </div>
         <div class="row justify-content-center p-3">
             <input type="hidden" name="id" value="<?=$id?>">	
-		    <a class="btn btn-outline-warning " href="index.php?p=iktatoszam.php">Mégsem</a>
+		    <a class="btn btn-outline-warning " href="index.php?p=iktatas.php">Mégsem</a>
             <input class="btn btn-outline-primary" type="submit" name="mentes" value="Mentés">
 	    </div>
         </form>
