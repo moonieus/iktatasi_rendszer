@@ -3,7 +3,7 @@ $lista="";
 //ha megerkezett az URL-ben az azonosito, meg kell jeleniteni a megfelelo rekordot:
 if(isset($_GET['editId'])){
 	$id=$_GET['editId'];//ezt az $id elrejtjuk a form-ban egy hidden tipusu tag-ban
-    $sql="SELECT iktatoszam,szamlaszam,partnerek.nev as 'nev',szla_kelte,telj_dat,fiz_hat,netto,afa,
+    $sql="SELECT iktatoszam,szamlaszam,partnerek_az,partnerek.nev as 'nev',szla_kelte,telj_dat,fiz_hat,netto,afa,
     brutto,status,kep FROM szamlak,partnerek where partnerek.az=szamlak.partnerek_az and iktatoszam={$id}";
 	$stmt=$db->query($sql);
 	$row=$stmt->fetch();
@@ -14,21 +14,27 @@ $sql="select az,nev as 'pnev' from partnerek order by nev";
 $stmt=$db->query($sql);
 while($row=$stmt->fetch()){
     extract($row);
-    $lista.="<option value='{$az}'>{$pnev}</option>";
+    $sel=$az==$partnerek_az ? "selected" : "";
+    $lista.="<option {$sel} value='{$az}'>{$pnev}</option>";
 }
 if(isset($_POST['mentes'])) {
     extract($_POST);
     $sql="update szamlak set szamlaszam='{$szamlaszam}',partnerek_az={$pkod},szla_kelte='{$szla_kelte}',telj_dat='{$telj_dat}',
     fiz_hat='{$fiz_hat}',netto={$netto},afa={$afa},brutto={$brutto},status='{$status}',kep='{$kep}' where iktatoszam={$id}";
-    try{
-        $stmt=$db->exec($sql);
-        $msg="Sikeres adatbeírás!"; 
-        unset($_GET['insert']);
-        header("Location:index.php?p=partnerek.php&msg={$msg}");
-    exit;
-    }catch(PDOException $e) {
-        //echo 'Caught exception: ',  $e->getMessage(), "\n";
-        $msg="Hiba! Nem sikerült az adat beírása az adatbázisba!";
+    if($netto+$afa!=$brutto){
+        $msg="A nettó érték és az áfa összegen egyezik a bruttó értékkel!";
+        echo "<script type='text/javascript'>alert('$msg');</script>";
+	}else{
+        try{
+            $stmt=$db->exec($sql);
+            $msg="Sikeres adatbeírás!"; 
+            unset($_GET['insert']);
+            header("Location:index.php?p=iktatas.php&msg={$msg}");
+        exit;
+        }catch(PDOException $e) {
+            //echo 'Caught exception: ',  $e->getMessage(), "\n";
+            $msg="Hiba! Nem sikerült az adat beírása az adatbázisba!";
+        }
     }
 }
 
@@ -49,7 +55,6 @@ if(isset($_POST['mentes'])) {
                     <div class="form-group">
                         <label for="">Partner:</label>
                         <select name="pkod" class="form-control" id="pkod">
-                            <option value="<?=$partnerek_az?>"><?=$nev?></option>
                             <?=$lista?>
                         </select>                        
                     </div>

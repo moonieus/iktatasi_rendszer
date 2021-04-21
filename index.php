@@ -18,7 +18,6 @@
 	<link rel="stylesheet" type="text/css" href="partnerek\partnerekView.css">
 	<!--<script src="menu.js"></script>-->
 	<link rel="stylesheet" href="style.css">            
-	<script src="fuggvenyek.js"></script>
 </head>
 
 <body>
@@ -67,8 +66,6 @@
 
     <main class="tartalom">
 		<?php
-				//print_r($_GET);
-				//print_r($_SESSION);
 				if(isset($_GET["p"]) && isset($_SESSION["jog"])){
 					$oldal = $_GET["p"];
 					switch($oldal){
@@ -104,8 +101,6 @@
 							break;		
 						case "logout.php" :
 							session_destroy();
-							print_r($_GET);
-							print_r($_SESSION);
 							header('Location:index.php');
 							break;													
 					}

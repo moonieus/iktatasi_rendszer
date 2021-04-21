@@ -34,9 +34,6 @@ if(isset($_POST['mentes'])) {
 ?>
    <div class="container border">
         <h3 class="text-center bg-warning">Adatok módosítása</h3>
-        <div class="row justify-content-center p-3">	
-			<a class="btn btn-outline-primary " href="index.php?p=felhasznalok.php">Vissza</a>
-		</div>
         <div class="row m-1 p-2">   
             <div class="col-5">
                 <form action="" method="post">
@@ -56,7 +53,8 @@ if(isset($_POST['mentes'])) {
                         </select>
                     </div>
 					<input type="hidden" name="id" value="<?=$id?>">
-                    <input type="submit" name="mentes" value="Módosítás">
+                    <a class="btn btn-outline-warning " href="index.php?p=felhasznalok.php">Mégsem</a>
+                    <input class="btn btn-outline-primary" type="submit" name="mentes" value="Mentés">  
                 </form>
               </div>
          </div>

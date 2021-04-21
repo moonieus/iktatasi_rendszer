@@ -36,7 +36,7 @@ while($row=$stmt->fetch()){
 						<th scope="col">Nettó</th>
 						<th scope="col">Áfa</th>
 						<th scope="col">Bruttó</th>
-						<th scope="col">Ig</th>		
+						<th scope="col">Igazolt</th>		
 						<th scope="col">PDF</th>				
 						<th scope="col">&nbsp</th>
 

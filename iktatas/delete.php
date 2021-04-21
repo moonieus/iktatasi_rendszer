@@ -2,13 +2,12 @@
 //az url-bol kapjuk az adatot:
 $msg="";
 $id = $_GET['deleteId'];
-$nev= $_GET['deleteNev'];
-$sql="delete from partnerek where az={$id}";
+$sql="delete from szamlak where iktatoszam={$id}";
 try{
 	$count=$db->exec($sql);
-	$msg ="A(z) {$nev} törölve az adatbázisból!"; 
+	$msg ="A számla törölve az adatbázisból!"; 
 }catch(PDOException $e){		
-	$msg= "A(z) {$nev} nem törölhető!"; 
+	$msg= "A számla nem törölhető!"; 
 }
-header("Location:index.php?p=partnerek.php&msg={$msg}");
+header("Location:index.php?p=iktatas.php&msg={$msg}");
 ?> 
