@@ -4,10 +4,12 @@ $sql="SELECT az,nev,adoszam,varos,utca,irszam,kapcsolattarto,telszam,email FROM 
 $stmt=$db->query($sql);
 while($row=$stmt->fetch()){
 	extract($row);
-	$tbl.="<tr><td>{$az}</td><td>{$nev}</td><td>{$adoszam}</td><td>{$varos}</td><td>{$utca}</td><td>{$irszam}</td>
-	<td>{$kapcsolattarto}</td><td>{$telszam}</td><td>{$email}</td>";           
-	$tbl.="<td class=' btn btn-outline-primary m-1'><a class='text-warning' href='index.php?p=partnerek.php&editId=$az'>Módosítás</a></td>";
-	$tbl.="<td class=' btn btn-outline-primary  m-1'><a class='text-danger' href='index.php?p=partnerek.php&deleteId=$az&deleteNev=$nev'>Törlés</a></td></tr>";
+	$tbl.="<tr><td>{$az}</td><td>{$nev}</td><td>{$adoszam}</td><td>{$varos}</td><td>{$utca}</td>
+		<td>{$irszam}</td>	<td>{$kapcsolattarto}</td><td>{$telszam}</td><td>{$email}</td>";           
+	$tbl.="<td class=' btn btn-outline-primary m-1'><a class='text-warning' 
+		href='index.php?p=partnerek.php&editId=$az'>Módosítás</a></td>";
+	$tbl.="<td class=' btn btn-outline-primary  m-1'><a class='text-danger' 
+		href='index.php?p=partnerek.php&deleteId=$az&deleteNev=$nev'>Törlés</a></td></tr>";
 }	
 ?>
 
