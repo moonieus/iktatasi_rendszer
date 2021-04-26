@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2021. Ápr 20. 16:57
+-- Létrehozás ideje: 2021. Ápr 26. 18:38
 -- Kiszolgáló verziója: 10.4.14-MariaDB
 -- PHP verzió: 7.2.33
 
@@ -128,12 +128,13 @@ INSERT INTO `szamlak` (`iktatoszam`, `szamlaszam`, `partnerek_az`, `szla_kelte`,
 (18, 'k-23/2021', 22, '2021-12-31', '2021-12-31', '2021-12-31', 1, 2, 3, 'N', 'IPARI ELEKTRONIKA.pdf'),
 (19, 'k1-34', 4, '2021-12-31', '2021-12-31', '2021-12-31', 5, 6, 7, 'N', 'IPARI ELEKTRONIKA.pdf'),
 (23, '2021-5566', 22, '2021-03-29', '2021-03-31', '2021-05-06', 1, 2, 3, 'V', 'Sárecz.pdf'),
-(24, '2021-45/6', 8, '2021-03-30', '2021-04-14', '2021-05-01', 1, 2, 6, 'N', 'IPARI ELEKTRONIKA.pdf'),
+(24, '2021-45/6', 8, '2021-03-30', '2021-04-14', '2021-05-01', 1, 2, 6, 'I', 'IPARI ELEKTRONIKA.pdf'),
 (25, 'r-45', 4, '2021-12-31', '2021-12-31', '2021-12-31', 2, 3, 8, 'N', 'IPARI ELEKTRONIKA.pdf'),
 (26, 'wwrw', 2, '2021-12-31', '2021-12-31', '2021-12-31', 1, 7, 7, 'N', ''),
 (27, 'qeqre', 22, '2021-12-31', '2021-12-31', '2021-12-31', -3, 0, 0, 'N', ''),
 (28, 'eew', 2, '2021-12-31', '2021-12-31', '2021-12-31', -1, 0, 0, 'N', ''),
-(29, '444', 22, '2021-12-31', '2021-12-31', '2021-12-31', 10, 0, 0, 'N', '');
+(29, '444', 22, '2021-12-31', '2021-12-31', '2021-12-31', 10, 0, 0, 'N', ''),
+(31, '35345', 9, '2021-12-31', '2021-12-31', '2021-12-31', 1, 0, 1, 'N', 'Sárecz.pdf');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -191,7 +192,7 @@ ALTER TABLE `partnerek`
 -- AUTO_INCREMENT a táblához `szamlak`
 --
 ALTER TABLE `szamlak`
-  MODIFY `iktatoszam` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `iktatoszam` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Megkötések a kiírt táblákhoz
